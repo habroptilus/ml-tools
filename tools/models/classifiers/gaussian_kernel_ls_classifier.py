@@ -56,3 +56,10 @@ class GaussianKernelLSBinaryClassifier:
     def evaluate(self, X, y):
         pred_y = self.predict(X)
         return accuracy_score(y, pred_y)
+
+    def predict_proba(self, X):
+        return np.stack([1 - self.sigmoid(self.score(X)), self.sigmoid(self.score(X))], axis=1)
+
+    def sigmoid(self, scores):
+        scores = np.array(scores)
+        return 1 / (1 + np.e**-scores)

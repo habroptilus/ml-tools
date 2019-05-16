@@ -11,7 +11,7 @@ class DigitDataLoader:
         X = []
         Y = []
         for label in range(self.class_num):
-            df = pd.read_csv(f"digit/digit_{kind}{label}.csv")
+            df = pd.read_csv(f"../data/digit/digit_{kind}{label}.csv")
             x = list(df.values)
             y = [label] * len(df)
             X += x
