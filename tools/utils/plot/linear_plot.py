@@ -1,12 +1,12 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 class LinearPlotter:
     """直線モデルに関してのPlotter"""
 
-    def __init__(self, grid):
-        self, grid = grid
+    def __init__(self, grid=100):
+        self.grid = grid
 
     def plot_data(self, data_x, data_y, theta):
         """generatorが生成したdatasetの可視化.
@@ -21,7 +21,7 @@ class LinearPlotter:
         ax.scatter(data_x, data_y)
         ax.plot(x, y, color='red')
         plt.title(
-            f"Generated data (y={theta1:.2f}x + {theta2:.2f})")
+            f"Generated data (y={theta[0]:.2f}x + {theta[1]:.2f})")
         plt.xlabel("x")
         plt.ylabel("y")
         plt.show()

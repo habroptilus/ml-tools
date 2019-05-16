@@ -3,7 +3,7 @@ import numpy as np
 
 
 class AnomalyDataGenerator:
-    def __init__(self, outlier_num=5, outlier=15, theta1=1, theta2=0.2, start=-3, stop=3, seed=None):
+    def __init__(self, theta1, theta2, outlier_num=5, outlier=15, start=-3, stop=3, seed=None):
         self.seed = seed
         self.stop = stop
         self.start = start
