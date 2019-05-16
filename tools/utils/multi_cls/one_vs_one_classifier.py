@@ -7,7 +7,7 @@ class OneVsOneClassifier:
     """一対一分類器."""
 
     def __init__(self, class_num, classifier, params=None):
-        """binary classifierを受け取り、c(c+1)/2個のインスタンスを作成する."""
+        """binary classifierを受け取り、c(c-1)/2個のインスタンスを作成する."""
         self.class_num = class_num
         self.perm = list(combinations(list(range(class_num)), 2))
         if params is None:
