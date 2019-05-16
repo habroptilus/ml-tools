@@ -12,7 +12,7 @@ class KMeans:
         N = X.shape[0]
         dim = X.shape[1]
         belongs = np.zeros(N, dtype=int)
-        mu = [np.random.uniform(min(X), max(X), dim)
+        mu = [np.random.uniform(np.min(X), np.max(X), dim)
               for _ in range(self.class_num)]
 
         for _ in range(self.max_iter):
@@ -36,6 +36,7 @@ class KMeans:
                 print("converged")
                 break
         self.mu_ = mu
+        return self.predict(X)
 
     def predict(self, X):
         pred = []

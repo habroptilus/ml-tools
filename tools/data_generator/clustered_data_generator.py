@@ -18,8 +18,11 @@ class ClusteredDataGenerator:
         :params N: the number of samples in each class
         """
         X = []
+        Y = []
         for i in range(self.class_num):
             x = np.random.multivariate_normal(self.mus[i], self.sigmas[i], N)
-            X.append(x)
-        y = [[i] * N for i in range(self.class_num)]
-        return np.array(X), np.array(y)
+            y = [i] * N
+            X.extend(x)
+            Y.extend(y)
+
+        return np.array(X), np.array(Y)

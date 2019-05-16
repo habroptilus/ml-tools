@@ -12,5 +12,6 @@ class ClusterPlotter:
         y label
         """
         for label in np.unique(y):
-            plt.scatter(X[y == label], c=colors[label])
+            x = X[y == label]
+            plt.scatter(x[:, 0], x[:, 1], c=self.colors[label])
         plt.show()
