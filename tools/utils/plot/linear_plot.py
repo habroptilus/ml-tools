@@ -26,7 +26,7 @@ class LinearPlotter:
         plt.ylabel("y")
         plt.show()
 
-    def plot_model(self, data_x, data_y, theta):
+    def plot_model(self, data_x, data_y, theta, title):
         """modelの出力した回帰直線とdatasetの散布図を重ねて表示する."""
         x = np.linspace(min(data_x), max(data_x), self.grid)
         const = np.ones(self.grid)
@@ -36,7 +36,7 @@ class LinearPlotter:
         ax = fig.add_subplot(111)
         ax.scatter(data_x, data_y)
         ax.plot(x, y, color='red')
-        plt.title("Regression result")
+        plt.title(title)
         plt.xlabel("x")
         plt.ylabel("y")
         plt.show()
