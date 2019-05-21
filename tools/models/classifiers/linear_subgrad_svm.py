@@ -4,7 +4,9 @@ from sklearn.metrics import accuracy_score
 
 
 class LinearSubgradSVM():
-    """線形モデルにサポートベクターマシンの劣勾配アルゴリズムを適用したモデル."""
+    """線形モデルにサポートベクターマシンの劣勾配アルゴリズムを適用したモデル.
+    ラベルは正例が1,負例は-1
+    """
 
     def __init__(self, lam, lr, max_iter, epsilon):
         """
@@ -71,5 +73,7 @@ class LinearSubgradSVM():
         return np.hstack((const, X))
 
     def evaluate(self, X, y):
+        y[y == -1] = 0
         pred_y = self.predict(X)
+        pred_y[pred_y == -1] = 0
         return accuracy_score(y, pred_y)
