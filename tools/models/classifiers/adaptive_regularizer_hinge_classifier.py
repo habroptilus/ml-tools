@@ -3,7 +3,7 @@ from sklearn.utils.validation import check_is_fitted
 from sklearn.metrics import accuracy_score
 
 
-class AdaptiveReglarizerHingeClassifier:
+class AdaptiveRegularizerHingeClassifier:
     """線形モデル + 二乗ヒンジ誤差 + 適応正則化model.
     ラベルは正例が1,負例は-1
     オンライン学習
@@ -67,9 +67,7 @@ class AdaptiveReglarizerHingeClassifier:
         return np.where(scores.flatten() > 0, 1, -1)
 
     def evaluate(self, X, y):
-        #y[y == -1] = 0
         pred_y = self.predict(X)
-        #pred_y[pred_y == -1] = 0
         return accuracy_score(y, pred_y)
 
     def add_const(self, X):
