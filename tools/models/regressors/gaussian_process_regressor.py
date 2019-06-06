@@ -14,8 +14,8 @@ class GaussianProcessRegressor:
         mu, _ = self.calc_mu_sigma(X)
         return mu
 
-    def calc_mu_sigma(self, X, y):
-        y = np.reshape(y, (len(y), 1))
+    def calc_mu_sigma(self, X):
+        y = np.reshape(self.y_train, (len(self.y_train), 1))
         k_star = self.get_gram_matrix(self.X_train, X)
         k_starstar = self.kernel.run(X, X)
         K_inv = np.linalg.inv(self.K)
