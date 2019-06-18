@@ -23,9 +23,12 @@ class LaplacianRegularizationClassifier:
         self.h_m = h_m
 
     def fit(self, X, y):
-        y = np.reshape(y, (len(y), 1))
-        data_n = X.shape[0]
+        self.X_train = X
         X_labeled = X[(y == 1) | (y == -1)]
+        y = y[(y == 1) | (y == -1)]
+        y = np.reshape(y, (len(y), 1))
+        y = y.astype(float)  # Noneだったからobjectになってるはずなので直す
+        data_n = X.shape[0]
         K_tilde = self.create_kernel_matrix(X_labeled, X, self.h_m)
         K = self.create_kernel_matrix(X, X, self.h_m)
         W = self.create_kernel_matrix(X, X, self.h_w)
@@ -66,9 +69,6 @@ class LaplacianRegularizationClassifier:
     def predict(self, X):
         """return 1 or -1"""
         check_is_fitted(self, 'coef_')
-        scores = X @ self.coef_
+        K = self.create_kernel_matrix(X, self.X_train, self.h_m)
+        scores = K @ self.coef_
         return np.where(scores.flatten() > 0, 1, -1)
-
-    def evaluate(self, X, y):
-        pred_y = self.predict(X)
-        return accuracy_score(y, pred_y)
