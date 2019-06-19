@@ -38,13 +38,13 @@ class ClassWeightedLinearClassifier:
         P = self.get_P(X_test)
         A = self.X_train.T@P@self.X_train
         b = self.X_train.T@P@y
-        theta = np.linalg.solve(A, b)
-        scores = X_test @ theta
+        self.theta = np.linalg.solve(A, b)
+        scores = X_test @ self.theta
         return np.where(scores > 0, 1, -1)
 
     def get_P(self, X_test):
         pi = self.get_pi(X_test)
-        print(f"estimated : {pi:.3f}")
+        print(f"estimated pi: {pi:.3f}")
         p = np.array([pi / self.pi_train if y == 1 else (1 - pi) /
                       (1 - self.pi_train) for y in self.y_train])
         return np.diag(p)
