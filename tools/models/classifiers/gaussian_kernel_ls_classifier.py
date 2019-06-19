@@ -38,7 +38,7 @@ class GaussianKernelLSBinaryClassifier:
         n = K.shape[0]
         self.coef_ = np.linalg.solve(
             np.dot(K, K) + self.c * np.eye(n), np.dot(K.T, y))
-        return self
+        return
 
     def score(self, X):
         check_is_fitted(self, 'coef_')
@@ -50,7 +50,7 @@ class GaussianKernelLSBinaryClassifier:
         return scores
 
     def predict(self, X):
-        score = self.score(X)
+        score = np.array(self.score(X))
         return np.where(score > 0, 1, -1)
 
     def evaluate(self, X, y):
