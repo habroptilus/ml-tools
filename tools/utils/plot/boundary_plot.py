@@ -3,7 +3,7 @@ import numpy as np
 
 
 class BinaryDataPlotter:
-    """binary dataをplotする.分類境界も表示する."""
+    """binary dataをplotする.分類境界も表示する.境界が直線のときにつかえる."""
 
     def __init__(self, pos_color="blue", neg_color="red"):
         self.pos_color = pos_color
