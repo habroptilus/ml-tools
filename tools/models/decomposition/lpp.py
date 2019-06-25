@@ -18,7 +18,6 @@ class LPP:
         A = X.T @ L @ X
         B = X.T @ D @ X
         eig_val, eig_vec = eigh(A, B)
-        print(eig_val)
         components = []
         for vec in eig_vec:  # normalize
             normalized_vec = vec / np.linalg.norm(vec)
