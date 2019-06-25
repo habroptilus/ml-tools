@@ -1,27 +1,29 @@
 import numpy as np
 import math
-import scipy
+from scipy.linalg import eigh
 
 
 class LPP:
     """Locality Preserving Projection."""
 
-    def __init__(self, n_components, h=np.sqrt(2)):
+    def __init__(self, n_components, h=1 / np.sqrt(2)):
         self.n_components = n_components
         self.h = h
 
     def fit(self, X):
+        X = X - np.mean(X, axis=0)
         W = self.create_similarity_matrix(X)
         D = self.get_degree_matrix(W)
         L = D - W
         A = X.T @ L @ X
         B = X.T @ D @ X
-        eig_val, eig_vec = scipy.linalg.eig(A, B)
-        components = []
-        for i in range(self.n_components):  # normalize
-            eig_vec[i] = eig_vec[i] / np.linalg.norm(eig_vec[i])
-        self.components_ = np.array(components)
+        eig_val, eig_vec = eigh(A, B)
         print(eig_val)
+        components = []
+        for vec in eig_vec:  # normalize
+            normalized_vec = vec / np.linalg.norm(vec)
+            components.append(normalized_vec)
+        self.components_ = np.array(components[:self.n_components])
         return self.components_
 
     def gaussian_kernel(self, x_i, x_j):
