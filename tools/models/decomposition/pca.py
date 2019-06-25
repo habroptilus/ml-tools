@@ -10,9 +10,11 @@ class PCA:
     def fit(self, X):
         self.mean_ = np.mean(X, axis=0)
         self.cov_ = self.get_covariance(X)
-        W, v = np.linalg.eig(self.cov_)
-        v = np.array(v).T
-        self.components_ = v[:self.n_components, :]
+        eig_val, eig_vec = np.linalg.eig(self.cov_)
+        eig_vec = np.array(eig_vec).T
+        index = np.argsort(-eig_val)
+        eig_vec = eig_vec[index]
+        self.components_ = eig_vec[:self.n_components, :]
         return self.components_
 
     def transform(self, X):

@@ -18,6 +18,8 @@ class LPP:
         A = X.T @ L @ X
         B = X.T @ D @ X
         eig_val, eig_vec = eigh(A, B)
+        index = np.argsort(eig_val)
+        eig_vec = eig_vec[index]
         components = []
         for vec in eig_vec:  # normalize
             normalized_vec = vec / np.linalg.norm(vec)
