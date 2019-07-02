@@ -19,6 +19,7 @@ class FDA:
             normalized_vec = vec / np.linalg.norm(vec)
             components.append(normalized_vec)
         self.components_ = np.array(components[:self.n_components])
+        return self.components_
 
     def transform(self, X):
         return self.components_ @ X
@@ -40,4 +41,4 @@ class FDA:
         return S_w, S_b
 
     def create_C(self, X):
-        return X@X.T
+        return X.T@X

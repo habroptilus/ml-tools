@@ -24,7 +24,7 @@ class BinaryDataPlotter:
         ax.scatter(x1[y == 1], x2[y == 1], color=self.pos_color, marker="o")
         ax.scatter(x1[y == -1], x2[y == -1], color=self.neg_color, marker="x")
         if theta is not None:
-            x = np.linspace(min(X[:, 0]), max(X[:, 0]), 100)
+            x = np.linspace(-6, 6, 100)
             y = -(theta[1] * x + theta[0]) / theta[2]
             ax.plot(x, y, color='black')
 
