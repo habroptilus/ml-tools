@@ -10,7 +10,7 @@ class FDA:
 
     def fit(self, X, y):
         X = X - np.mean(X, axis=0)
-        S_w, S_w = self.create_W(X, y)
+        S_w, S_b = self.create_W(X, y)
         eig_val, eig_vec = eigh(S_b, S_w)
         index = np.argsort(eig_val)
         eig_vec = eig_vec[index]
