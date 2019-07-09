@@ -38,14 +38,19 @@ class LaplacianEigenmap:
         W = []
         for x_i in X:
             W.append(self.k_nearest_list(X, x_i))
-        return np.array(W)
+        W = np.array(W)
+        return np.where(np.logical_or(W, W.T), 1, 0)
 
     def k_nearest_list(self, X, x_i):
+        """
+        return the ndarray containing bool value represents whether the value is in k nearest neighbor of x_i
+        e.g. ndarray [True False True]
+        """
         dist_list = [self.dist(x_i, x_j) for x_j in X]
         sorted_list = sorted(dist_list)  # 昇順
         threshold = sorted_list[self.k - 1]
         dist_list = np.array(dist_list)
-        return np.where(dist_list <= threshold, 1, 0)
+        return dist_list <= threshold
 
     def dist(self, x_i, x_j):
         return np.dot(x_i - x_j, x_i - x_j)
