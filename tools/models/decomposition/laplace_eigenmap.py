@@ -6,7 +6,7 @@ class LaplacianEigenmap:
     def __init__(self, n_components, k):
         """
         param: n_component : embedding dim
-        param: k : knn of similarity matrix 
+        param: k : knn of similarity matrix
         """
         self.n_components = n_components
         self.k = k
@@ -18,6 +18,14 @@ class LaplacianEigenmap:
         eig_val, eig_vec = eigh(L, D)
         index = np.argsort(eig_val)
         eig_vec = eig_vec[index]
+        print(eig_val[0])
+        components = []
+        for vec in eig_vec:  # normalize
+            normalized_vec = vec / np.linalg.norm(vec)
+            components.append(normalized_vec)
+        # skip eigen value 0
+        phi = np.array(components[1:self.n_components + 1])
+        return phi.T
 
     def get_degree_matrix(self, W):
         return np.diag([sum(W[i]) for i in range(len(W))])
