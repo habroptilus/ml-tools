@@ -14,17 +14,14 @@ class LaplacianEigenmap:
     def transform(self, X):
         W = self.create_similarity_matrix(X)
         D = self.get_degree_matrix(W)
+        D = D.astype(float)
         L = D - W
+        print(L.shape, D.shape)
         eig_val, eig_vec = eigh(L, D)
+        eig_vec = eig_vec.T
         index = np.argsort(eig_val)
         eig_vec = eig_vec[index]
-        print(eig_val[0])
-        components = []
-        for vec in eig_vec:  # normalize
-            normalized_vec = vec / np.linalg.norm(vec)
-            components.append(normalized_vec)
-        # skip eigen value 0
-        phi = np.array(components[1:self.n_components + 1])
+        phi = eig_vec[1:self.n_components + 1]
         return phi.T
 
     def get_degree_matrix(self, W):
@@ -50,7 +47,9 @@ class LaplacianEigenmap:
         sorted_list = sorted(dist_list)  # 昇順
         threshold = sorted_list[self.k - 1]
         dist_list = np.array(dist_list)
-        return dist_list <= threshold
+        knn_list = dist_list <= threshold
+        assert sum(knn_list) == self.k, knn_list
+        return knn_list
 
     def dist(self, x_i, x_j):
         return np.dot(x_i - x_j, x_i - x_j)
