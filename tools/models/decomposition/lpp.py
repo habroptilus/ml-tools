@@ -18,6 +18,7 @@ class LPP:
         A = X.T @ L @ X
         B = X.T @ D @ X
         eig_val, eig_vec = eigh(A, B)
+        eig_vec = eig_vec.T  # こうしないと列ベクトルが固有ベクトルなのでsortしたときに対応が崩れる
         index = np.argsort(eig_val)
         eig_vec = eig_vec[index]
         components = []

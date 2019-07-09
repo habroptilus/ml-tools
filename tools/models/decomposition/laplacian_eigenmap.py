@@ -16,7 +16,6 @@ class LaplacianEigenmap:
         D = self.get_degree_matrix(W)
         D = D.astype(float)
         L = D - W
-        print(L.shape, D.shape)
         eig_val, eig_vec = eigh(L, D)
         eig_vec = eig_vec.T
         index = np.argsort(eig_val)
